@@ -1,8 +1,20 @@
-name: check index.html exists
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Check if index.html exists
+
 on: [push]
+
 jobs:
-  Explore-GitHub-Actions:
+  check-file:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for index.html
+        run: |
+          if [ ! -f "index.html" ]; then
+            echo "index.html does not exist."
+            exit 1
+          else
+            echo "index.html exists."
+          fi
